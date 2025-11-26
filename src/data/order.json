@@ -1,0 +1,13 @@
+[
+  {
+    "id": "1c0747fd-b7f4-4886-8f40-1b58a3121499",
+    "store_id": "teste",
+    "items": [
+      {
+        "quantity": 3
+      }
+    ],
+    "total_amount": 0,
+    "status": "teste"
+  }
+]

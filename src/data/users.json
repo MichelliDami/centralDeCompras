@@ -1,0 +1,33 @@
+[
+  {
+    "id": "87c54f6d-b9c4-45a6-a504-a4c24b3e3b35",
+    "name": "Nicole Atualizada",
+    "contact_email": "nicole@novo.com",
+    "user": "nicole123",
+    "pwd": "senha123",
+    "level": "admin",
+    "status": "off"
+  },
+  {
+    "id": "7551fa80-3001-43a9-8f5e-da991688c507",
+    "name": "Michelli"
+  },
+  {
+    "id": "ec7572ba-99fc-4e99-8900-11968b161b23",
+    "name": "Michelli",
+    "contact_email": "maria@teste.com",
+    "user": "maria123",
+    "pwd": "senha123",
+    "level": "admin",
+    "status": "on"
+  },
+  {
+    "id": "18c7658d-368c-464c-b314-f038d60ae242",
+    "name": "Maria teste",
+    "contact_email": "maria@teste.com",
+    "user": "maria123",
+    "pwd": "senha123",
+    "level": "admin",
+    "status": "on"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "name": "central-compras",
+  "version": "1.0.0",
+  "description": "API Central de Compras",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "mongoose": "^8.20.1",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^8.3.2"
+  }
+}
