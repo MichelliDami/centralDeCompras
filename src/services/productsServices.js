@@ -1,25 +1,30 @@
-const ProductsRepository = require("../repository/productsRepository");
+const Product = require("../models/products");
 
-class productsServices {
-  async getAll() {
-    return await ProductsRepository.findAll();
+class productsRepository {
+  async findAll() {
+    return await Product.find();
   }
 
-  async getById(id) {
-    return await ProductsRepository.findById(id);
+  async findById(id) {
+    return await Product.findById(id);
   }
 
   async create(data) {
-    return await ProductsRepository.create(data);
+    return await Product.create(data);
   }
 
   async update(id, data) {
-    return await ProductsRepository.update(id, data);
+    return await Product.findByIdAndUpdate(id, data, { new: true });
   }
 
   async delete(id) {
-    return await ProductsRepository.delete(id);
+    return await Product.findByIdAndDelete(id);
+  }
+
+  // 🔥 NOVO — buscar produtos por fornecedor
+  async findBySupplier(supplierId) {
+    return await Product.find({ supplier_id: supplierId });
   }
 }
 
-module.exports = new productsServices();
+module.exports = new productsRepository();

@@ -20,6 +20,8 @@ class productsRepository {
   async delete(id) {
     return await Product.findByIdAndDelete(id);
   }
+
+  
 }
 
 module.exports = new productsRepository();

@@ -1,25 +1,30 @@
-const StoresRepository = require("../repository/storesRepository");
+const ProductsRepository = require("../repository/productsRepository");
 
-class storesService {
+class productsServices {
   async getAll() {
-    return await StoresRepository.findAll();
+    return await ProductsRepository.findAll();
   }
 
   async getById(id) {
-    return await StoresRepository.findById(id);
+    return await ProductsRepository.findById(id);
   }
 
   async create(data) {
-    return await StoresRepository.create(data);
+    return await ProductsRepository.create(data);
   }
 
   async update(id, data) {
-    return await StoresRepository.update(id, data);
+    return await ProductsRepository.update(id, data);
   }
 
   async delete(id) {
-    return await StoresRepository.delete(id);
+    return await ProductsRepository.delete(id);
+  }
+
+  
+  async getBySupplier(supplierId) {
+    return await ProductsRepository.findBySupplier(supplierId);
   }
 }
 
-module.exports = new storesService();
+module.exports = new productsServices();

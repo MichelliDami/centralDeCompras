@@ -157,7 +157,30 @@
     "/products": {
       "get": { "tags": ["Produtos"], "summary": "Listar todos os produtos", "responses": { "200": { "description": "Sucesso" } } },
       "post": { "tags": ["Produtos"], "summary": "Cadastrar novo produto", "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "name": { "type": "string" }, "description": { "type": "string" }, "price": { "type": "number" }, "stock_quantity": { "type": "integer" }, "supplier_id": { "type": "string" }, "status": { "type": "string" } }, "required": ["name", "description", "price", "stock_quantity", "supplier_id"] } } } }, "responses": { "201": { "description": "Produto criado" } } }
-    },
+    },"/products/supplier/{supplierId}": {
+  "get": {
+    "tags": ["Produtos"],
+    "summary": "Listar produtos de um fornecedor específico",
+    "parameters": [
+      {
+        "name": "supplierId",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "ID do fornecedor"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Lista de produtos retornada com sucesso"
+      },
+      "404": {
+        "description": "Nenhum produto encontrado para este fornecedor"
+      }
+    }
+  }
+}
+,
     "/products/{id}": {
       "get": { "tags": ["Produtos"], "summary": "Buscar produto por ID", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Sucesso" }, "404": { "description": "Produto não encontrado" } } },
       "put": { "tags": ["Produtos"], "summary": "Atualizar produto", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "name": { "type": "string" }, "description": { "type": "string" }, "price": { "type": "number" }, "stock_quantity": { "type": "integer" }, "supplier_id": { "type": "string" }, "status": { "type": "string" } } } } } }, "responses": { "200": { "description": "Atualizado" }, "404": { "description": "Produto não encontrado" } } },
