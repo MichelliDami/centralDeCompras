@@ -1,13 +1,12 @@
-const productsServices = require("../services/productsServices");
+const ProductsServices = require("../services/productsServices");
 
 class productsController {
-
   async index(req, res) {
     try {
-      const result = await productsServices.getAll();
-      res.json(result);
+      const result = await ProductsServices.getAll();
+      return res.json(result);
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         error: "Erro ao listar produtos",
         details: err.message
       });
@@ -16,15 +15,15 @@ class productsController {
 
   async show(req, res) {
     try {
-      const result = await productsServices.getById(req.params.id);
+      const result = await ProductsServices.getById(req.params.id);
 
       if (!result) {
         return res.status(404).json({ message: "Produto não encontrado" });
       }
 
-      res.json(result);
+      return res.json(result);
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         error: "Erro ao buscar produto",
         details: err.message
       });
@@ -33,11 +32,11 @@ class productsController {
 
   async store(req, res) {
     try {
-      const result = await productsServices.create(req.body);
-      res.status(201).json(result);
+      const result = await ProductsServices.create(req.body);
+      return res.status(201).json(result);
     } catch (err) {
-      res.status(500).json({
-        error: "Erro ao criar produto",
+      return res.status(400).json({
+        error: "Erro de validação",
         details: err.message
       });
     }
@@ -45,15 +44,15 @@ class productsController {
 
   async update(req, res) {
     try {
-      const result = await productsServices.update(req.params.id, req.body);
+      const result = await ProductsServices.update(req.params.id, req.body);
 
       if (!result) {
         return res.status(404).json({ message: "Produto não encontrado" });
       }
 
-      res.json(result);
+      return res.json(result);
     } catch (err) {
-      res.status(500).json({
+      return res.status(400).json({
         error: "Erro ao atualizar produto",
         details: err.message
       });
@@ -62,36 +61,35 @@ class productsController {
 
   async delete(req, res) {
     try {
-      await productsServices.delete(req.params.id);
-      res.json({ message: "Produto removido com sucesso" });
+      await ProductsServices.delete(req.params.id);
+      return res.json({ message: "Produto removido com sucesso" });
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         error: "Erro ao remover produto",
         details: err.message
       });
     }
   }
 
-  // 🔥 NOVO — buscar produtos por fornecedor
+  // 🔥 AGORA SIM — método correto dentro da classe
   async getBySupplier(req, res) {
     try {
       const supplierId = req.params.supplierId;
 
-      const products = await productsServices.getBySupplier(supplierId);
+      const products = await ProductsServices.getBySupplier(supplierId);
 
       if (!products || products.length === 0) {
         return res.status(404).json({
-          message: "Nenhum produto encontrado para este fornecedor."
+          message: "Nenhum produto encontrado para este fornecedor"
         });
       }
 
       return res.json(products);
 
-    } catch (err) {
-      console.error("Erro ao buscar produtos por fornecedor:", err);
+    } catch (error) {
+      console.error("Erro ao buscar produtos por fornecedor:", error);
       return res.status(500).json({
-        error: "Erro no servidor",
-        details: err.message
+        error: "Erro no servidor ao buscar produtos por fornecedor"
       });
     }
   }
