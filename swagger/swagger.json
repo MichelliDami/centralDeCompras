@@ -90,37 +90,14 @@
     },
 
     "/suppliers": {
-      "get": { "tags": ["Fornecedores"], "summary": "Listar todos os fornecedores", "responses": { "200": { "description": "Sucesso" } } },
-      "post": {
-        "tags": ["Fornecedores"],
-        "summary": "Cadastrar novo fornecedor",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "supplier_name": { "type": "string" },
-                  "supplier_category": { "type": "string" },
-                  "contact_email": { "type": "string" },
-                  "phone_number": { "type": "string" },
-                  "status": { "type": "string" }
-                },
-                "required": ["supplier_name", "supplier_category", "contact_email", "phone_number"]
-              }
-            }
-          }
-        },
-        "responses": { "201": { "description": "Fornecedor criado" } }
-      }
-    },
-    "/suppliers": {
   "get": {
     "tags": ["Fornecedores"],
     "summary": "Listar todos os fornecedores",
-    "responses": { "200": { "description": "Sucesso" } }
+    "responses": {
+      "200": { "description": "Lista de fornecedores retornada com sucesso" }
+    }
   },
+
   "post": {
     "tags": ["Fornecedores"],
     "summary": "Cadastrar novo fornecedor",
@@ -136,7 +113,6 @@
               "contact_email": { "type": "string" },
               "phone_number": { "type": "string" },
               "status": { "type": "string", "enum": ["on", "off"] },
-
               "cnpj": { "type": "string" },
               "cep": { "type": "string" },
               "rua": { "type": "string" },
@@ -162,10 +138,89 @@
       }
     },
     "responses": {
-      "201": { "description": "Fornecedor criado" }
+      "201": { "description": "Fornecedor criado com sucesso" },
+      "400": { "description": "Erro de validação" }
+    }
+  }
+},
+
+"/suppliers/{id}": {
+  "get": {
+    "tags": ["Fornecedores"],
+    "summary": "Buscar fornecedor por ID",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "200": { "description": "Fornecedor encontrado" },
+      "404": { "description": "Fornecedor não encontrado" }
+    }
+  },
+
+  "put": {
+    "tags": ["Fornecedores"],
+    "summary": "Atualizar fornecedor por ID",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "supplier_name": { "type": "string" },
+              "supplier_category": { "type": "string" },
+              "contact_email": { "type": "string" },
+              "phone_number": { "type": "string" },
+              "status": { "type": "string", "enum": ["on", "off"] },
+              "cnpj": { "type": "string" },
+              "cep": { "type": "string" },
+              "rua": { "type": "string" },
+              "numero": { "type": "string" },
+              "cidade": { "type": "string" },
+              "estado": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": { "description": "Fornecedor atualizado" },
+      "400": { "description": "Erro ao atualizar" },
+      "404": { "description": "Fornecedor não encontrado" }
+    }
+  },
+
+  "delete": {
+    "tags": ["Fornecedores"],
+    "summary": "Remover fornecedor",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "200": { "description": "Fornecedor removido com sucesso" },
+      "404": { "description": "Fornecedor não encontrado" }
     }
   }
 }
+
 ,
 
     "/stores": {
