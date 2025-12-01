@@ -115,11 +115,58 @@
         "responses": { "201": { "description": "Fornecedor criado" } }
       }
     },
-    "/suppliers/{id}": {
-      "get": { "tags": ["Fornecedores"], "summary": "Buscar fornecedor por ID", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Sucesso" }, "404": { "description": "Fornecedor não encontrado" } } },
-      "put": { "tags": ["Fornecedores"], "summary": "Atualizar fornecedor", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "supplier_name": { "type": "string" }, "supplier_category": { "type": "string" }, "contact_email": { "type": "string" }, "phone_number": { "type": "string" }, "status": { "type": "string" } } } } } }, "responses": { "200": { "description": "Atualizado" }, "404": { "description": "Fornecedor não encontrado" } } },
-      "delete": { "tags": ["Fornecedores"], "summary": "Deletar fornecedor", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Deletado" } } }
+    "/suppliers": {
+  "get": {
+    "tags": ["Fornecedores"],
+    "summary": "Listar todos os fornecedores",
+    "responses": { "200": { "description": "Sucesso" } }
+  },
+  "post": {
+    "tags": ["Fornecedores"],
+    "summary": "Cadastrar novo fornecedor",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "supplier_name": { "type": "string" },
+              "supplier_category": { "type": "string" },
+              "contact_email": { "type": "string" },
+              "phone_number": { "type": "string" },
+              "status": { "type": "string", "enum": ["on", "off"] },
+
+              "cnpj": { "type": "string" },
+              "cep": { "type": "string" },
+              "rua": { "type": "string" },
+              "numero": { "type": "string" },
+              "cidade": { "type": "string" },
+              "estado": { "type": "string" }
+            },
+            "required": [
+              "supplier_name",
+              "supplier_category",
+              "contact_email",
+              "phone_number",
+              "status",
+              "cnpj",
+              "cep",
+              "rua",
+              "numero",
+              "cidade",
+              "estado"
+            ]
+          }
+        }
+      }
     },
+    "responses": {
+      "201": { "description": "Fornecedor criado" }
+    }
+  }
+}
+,
 
     "/stores": {
       "get": { "tags": ["Lojas"], "summary": "Listar todas as lojas", "responses": { "200": { "description": "Sucesso" } } },

@@ -14,15 +14,24 @@ class suppliersController {
   }
 
   async store(req, res) {
-    const created = await SuppliersService.create(req.body);
-    res.status(201).json(created);
+    try {
+      const created = await SuppliersService.create(req.body);
+      res.status(201).json(created);
+    } catch (error) {
+      console.error("Erro ao criar fornecedor:", error);
+      res.status(400).json({ error: "Erro ao criar fornecedor", details: error.message });
+    }
   }
 
   async update(req, res) {
-    const updated = await SuppliersService.update(req.params.id, req.body);
-    updated
-      ? res.json(updated)
-      : res.status(404).json({ message: "Fornecedor não encontrado" });
+    try {
+      const updated = await SuppliersService.update(req.params.id, req.body);
+      updated
+        ? res.json(updated)
+        : res.status(404).json({ message: "Fornecedor não encontrado" });
+    } catch (error) {
+      res.status(400).json({ error: "Erro ao atualizar fornecedor", details: error.message });
+    }
   }
 
   async delete(req, res) {
