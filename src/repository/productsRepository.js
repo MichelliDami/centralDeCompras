@@ -20,7 +20,10 @@ class productsRepository {
   async delete(id) {
     return await Product.findByIdAndDelete(id);
   }
-
+ async findBySupplier(supplierId) {
+    return await Product.find({ supplier_id: supplierId })
+      .populate("supplier_id");
+  }
   
 }
 
