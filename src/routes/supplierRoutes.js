@@ -1,12 +1,19 @@
 const express = require("express");
-const SuppliersController = require("../controllers/suppliersController");
+const suppliersController = require("../controllers/suppliersController");
 
 const router = express.Router();
 
-router.get("/", SuppliersController.index);
-router.get("/:id", SuppliersController.show);
-router.post("/", SuppliersController.store);
-router.put("/:id", SuppliersController.update);
-router.delete("/:id", SuppliersController.delete);
+// CRUD básico
+router.get("/", suppliersController.index);
+router.get("/:id", suppliersController.show);
+router.post("/", suppliersController.store);
+router.put("/:id", suppliersController.update);
+router.delete("/:id", suppliersController.delete);
+
+// ➕ adicionar endereço ao fornecedor
+router.post("/:id/address", suppliersController.addAddress);
+
+// ➕ adicionar contato ao fornecedor
+router.post("/:id/contact", suppliersController.addContact);
 
 module.exports = router;

@@ -32,6 +32,12 @@ const productSchema = new mongoose.Schema(
       type: String,
       enum: ["on", "off"],
       required: true
+    },
+
+
+    barcode: {
+      type: String,
+      required: true
     }
   },
   { timestamps: true }

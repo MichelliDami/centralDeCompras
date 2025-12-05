@@ -12,10 +12,19 @@ const storeSchema = new mongoose.Schema(
       required: true
     },
 
-    address: {
-      type: String,
-      required: true
-    },
+   addresses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address"
+      }
+    ],
+
+    contacts: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "contact"
+  }
+],
 
     phone_number: {
       type: String,

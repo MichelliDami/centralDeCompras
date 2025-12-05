@@ -4,7 +4,7 @@ const campaignSchema = new mongoose.Schema(
   {
     supplier_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Supplier",
+      ref: "supplier",
       required: true
     },
 

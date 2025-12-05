@@ -3,9 +3,6 @@ const mongoose = require("mongoose");
 const supplierSchema = new mongoose.Schema(
   {
     supplier_name: { type: String, required: true },
-    supplier_category: { type: String, required: true },
-    contact_email: { type: String, required: true },
-    phone_number: { type: String, required: true },
 
     status: {
       type: String,
@@ -13,15 +10,21 @@ const supplierSchema = new mongoose.Schema(
       required: true
     },
 
-
-    cnpj: { type: String, required: true },
-    cep: { type: String, required: true },
-    rua: { type: String, required: true },
-    numero: { type: String, required: true },
-    cidade: { type: String, required: true },
-    estado: { type: String, required: true }
+    addresses: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Address"
+          }
+        ],
+    
+        contacts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "contact"
+      }
+    ]
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Supplier", supplierSchema);
+module.exports = mongoose.model("supplier", supplierSchema);

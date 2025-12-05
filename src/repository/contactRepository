@@ -1,0 +1,13 @@
+const contact = require("../models/contact");
+
+class contactrepository {
+  async create(data) {
+    return await contact.create(data);
+  }
+
+  async delete(id) {
+    return await contact.findByIdAndDelete(id);
+  }
+}
+
+module.exports = new contactrepository();

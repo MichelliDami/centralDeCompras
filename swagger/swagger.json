@@ -47,11 +47,14 @@
         "responses": { "201": { "description": "Usuário criado" } }
       }
     },
+
     "/users/{id}": {
       "get": {
         "tags": ["Usuários"],
         "summary": "Buscar usuário por ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
         "responses": {
           "200": { "description": "Sucesso" },
           "404": { "description": "Usuário não encontrado" }
@@ -60,7 +63,9 @@
       "put": {
         "tags": ["Usuários"],
         "summary": "Atualizar usuário",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -79,152 +84,163 @@
             }
           }
         },
-        "responses": { "200": { "description": "Atualizado" }, "404": { "description": "Usuário não encontrado" } }
+        "responses": {
+          "200": { "description": "Atualizado" },
+          "404": { "description": "Usuário não encontrado" }
+        }
       },
       "delete": {
         "tags": ["Usuários"],
         "summary": "Deletar usuário",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
         "responses": { "200": { "description": "Deletado" } }
       }
     },
 
     "/suppliers": {
-  "get": {
-    "tags": ["Fornecedores"],
-    "summary": "Listar todos os fornecedores",
-    "responses": {
-      "200": { "description": "Lista de fornecedores retornada com sucesso" }
-    }
-  },
-
-  "post": {
-    "tags": ["Fornecedores"],
-    "summary": "Cadastrar novo fornecedor",
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "properties": {
-              "supplier_name": { "type": "string" },
-              "supplier_category": { "type": "string" },
-              "contact_email": { "type": "string" },
-              "phone_number": { "type": "string" },
-              "status": { "type": "string", "enum": ["on", "off"] },
-              "cnpj": { "type": "string" },
-              "cep": { "type": "string" },
-              "rua": { "type": "string" },
-              "numero": { "type": "string" },
-              "cidade": { "type": "string" },
-              "estado": { "type": "string" }
-            },
-            "required": [
-              "supplier_name",
-              "supplier_category",
-              "contact_email",
-              "phone_number",
-              "status",
-              "cnpj",
-              "cep",
-              "rua",
-              "numero",
-              "cidade",
-              "estado"
-            ]
-          }
-        }
-      }
-    },
-    "responses": {
-      "201": { "description": "Fornecedor criado com sucesso" },
-      "400": { "description": "Erro de validação" }
-    }
-  }
-},
-
-"/suppliers/{id}": {
-  "get": {
-    "tags": ["Fornecedores"],
-    "summary": "Buscar fornecedor por ID",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "schema": { "type": "string" }
-      }
-    ],
-    "responses": {
-      "200": { "description": "Fornecedor encontrado" },
-      "404": { "description": "Fornecedor não encontrado" }
-    }
-  },
-
-  "put": {
-    "tags": ["Fornecedores"],
-    "summary": "Atualizar fornecedor por ID",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "schema": { "type": "string" }
-      }
-    ],
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "properties": {
-              "supplier_name": { "type": "string" },
-              "supplier_category": { "type": "string" },
-              "contact_email": { "type": "string" },
-              "phone_number": { "type": "string" },
-              "status": { "type": "string", "enum": ["on", "off"] },
-              "cnpj": { "type": "string" },
-              "cep": { "type": "string" },
-              "rua": { "type": "string" },
-              "numero": { "type": "string" },
-              "cidade": { "type": "string" },
-              "estado": { "type": "string" }
+      "get": {
+        "tags": ["Fornecedores"],
+        "summary": "Listar todos os fornecedores",
+        "responses": { "200": { "description": "Lista de fornecedores retornada com sucesso" } }
+      },
+      "post": {
+        "tags": ["Fornecedores"],
+        "summary": "Cadastrar novo fornecedor",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "supplier_name": { "type": "string" },
+                  "status": { "type": "string", "enum": ["on", "off"] }
+                },
+                "required": ["supplier_name", "status"]
+              }
             }
           }
+        },
+        "responses": { "201": { "description": "Fornecedor criado com sucesso" } }
+      }
+    },
+
+    "/suppliers/{id}": {
+      "get": {
+        "tags": ["Fornecedores"],
+        "summary": "Buscar fornecedor por ID (com endereços e contatos)",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Fornecedor encontrado" },
+          "404": { "description": "Fornecedor não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Fornecedores"],
+        "summary": "Atualizar fornecedor",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "supplier_name": { "type": "string" },
+                  "status": { "type": "string", "enum": ["on", "off"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Fornecedor atualizado" },
+          "404": { "description": "Fornecedor não encontrado" }
+        }
+      },
+      "delete": {
+        "tags": ["Fornecedores"],
+        "summary": "Deletar fornecedor",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Fornecedor removido com sucesso" }
         }
       }
     },
-    "responses": {
-      "200": { "description": "Fornecedor atualizado" },
-      "400": { "description": "Erro ao atualizar" },
-      "404": { "description": "Fornecedor não encontrado" }
-    }
-  },
 
-  "delete": {
-    "tags": ["Fornecedores"],
-    "summary": "Remover fornecedor",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "schema": { "type": "string" }
+    "/suppliers/{id}/address": {
+      "post": {
+        "tags": ["Fornecedores"],
+        "summary": "Adicionar endereço ao fornecedor",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cep": { "type": "string" },
+                  "logradouro": { "type": "string" },
+                  "numero": { "type": "string" },
+                  "bairro": { "type": "string" },
+                  "cidade": { "type": "string" },
+                  "estado": { "type": "string" }
+                },
+                "required": ["cep", "logradouro", "numero", "bairro", "cidade", "estado"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Endereço adicionado com sucesso" } }
       }
-    ],
-    "responses": {
-      "200": { "description": "Fornecedor removido com sucesso" },
-      "404": { "description": "Fornecedor não encontrado" }
-    }
-  }
-}
+    },
 
-,
+    "/suppliers/{id}/contact": {
+      "post": {
+        "tags": ["Fornecedores"],
+        "summary": "Adicionar contato ao fornecedor",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string" },
+                  "email": { "type": "string" },
+                  "telefone": { "type": "string" },
+                  "celular": { "type": "string" },
+                  "regiao": { "type": "string" }
+                },
+                "required": ["nome"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Contato adicionado com sucesso" } }
+      }
+    },
 
     "/stores": {
-      "get": { "tags": ["Lojas"], "summary": "Listar todas as lojas", "responses": { "200": { "description": "Sucesso" } } },
+      "get": {
+        "tags": ["Lojas"],
+        "summary": "Listar todas as lojas",
+        "responses": { "200": { "description": "Lista de lojas retornada com sucesso" } }
+      },
       "post": {
         "tags": ["Lojas"],
         "summary": "Cadastrar nova loja",
@@ -237,76 +253,478 @@
                 "properties": {
                   "store_name": { "type": "string" },
                   "cnpj": { "type": "string" },
-                  "address": { "type": "string" },
                   "phone_number": { "type": "string" },
                   "contact_email": { "type": "string" },
-                  "status": { "type": "string" }
+                  "status": { "type": "string", "enum": ["on", "off"] }
                 },
-                "required": ["store_name", "cnpj", "address", "phone_number", "contact_email"]
+                "required": ["store_name", "cnpj", "phone_number", "contact_email", "status"]
               }
             }
           }
         },
-        "responses": { "201": { "description": "Loja criada" } }
+        "responses": { "201": { "description": "Loja criada com sucesso" } }
       }
     },
+
     "/stores/{id}": {
-      "get": { "tags": ["Lojas"], "summary": "Buscar loja por ID", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Sucesso" }, "404": { "description": "Loja não encontrada" } } },
-      "put": { "tags": ["Lojas"], "summary": "Atualizar loja", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "store_name": { "type": "string" }, "cnpj": { "type": "string" }, "address": { "type": "string" }, "phone_number": { "type": "string" }, "contact_email": { "type": "string" }, "status": { "type": "string" } } } } } }, "responses": { "200": { "description": "Atualizado" }, "404": { "description": "Loja não encontrada" } } },
-      "delete": { "tags": ["Lojas"], "summary": "Deletar loja", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Deletado" } } }
+      "get": {
+        "tags": ["Lojas"],
+        "summary": "Buscar loja por ID (endereços e contatos populados)",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Loja encontrada" },
+          "404": { "description": "Loja não encontrada" }
+        }
+      },
+      "put": {
+        "tags": ["Lojas"],
+        "summary": "Atualizar loja",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "store_name": { "type": "string" },
+                  "cnpj": { "type": "string" },
+                  "phone_number": { "type": "string" },
+                  "contact_email": { "type": "string" },
+                  "status": { "type": "string", "enum": ["on", "off"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Atualizado" },
+          "404": { "description": "Loja não encontrada" }
+        }
+      },
+      "delete": {
+        "tags": ["Lojas"],
+        "summary": "Remover loja",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Loja removida com sucesso" } }
+      }
+    },
+
+    "/stores/{id}/address": {
+      "post": {
+        "tags": ["Lojas"],
+        "summary": "Adicionar endereço à loja",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cep": { "type": "string" },
+                  "logradouro": { "type": "string" },
+                  "numero": { "type": "string" },
+                  "bairro": { "type": "string" },
+                  "cidade": { "type": "string" },
+                  "estado": { "type": "string" }
+                },
+                "required": ["cep", "logradouro", "numero", "bairro", "cidade", "estado"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Endereço adicionado com sucesso" } }
+      }
+    },
+
+    "/stores/{id}/contact": {
+      "post": {
+        "tags": ["Lojas"],
+        "summary": "Adicionar contato à loja",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string" },
+                  "email": { "type": "string" },
+                  "telefone": { "type": "string" },
+                  "celular": { "type": "string" },
+                  "regiao": { "type": "string" }
+                },
+                "required": ["nome"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Contato adicionado com sucesso" } }
+      }
     },
 
     "/products": {
-      "get": { "tags": ["Produtos"], "summary": "Listar todos os produtos", "responses": { "200": { "description": "Sucesso" } } },
-      "post": { "tags": ["Produtos"], "summary": "Cadastrar novo produto", "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "name": { "type": "string" }, "description": { "type": "string" }, "price": { "type": "number" }, "stock_quantity": { "type": "integer" }, "supplier_id": { "type": "string" }, "status": { "type": "string" } }, "required": ["name", "description", "price", "stock_quantity", "supplier_id"] } } } }, "responses": { "201": { "description": "Produto criado" } } }
-    },"/products/supplier/{supplierId}": {
-  "get": {
-    "tags": ["Produtos"],
-    "summary": "Listar produtos de um fornecedor específico",
-    "parameters": [
-      {
-        "name": "supplierId",
-        "in": "path",
-        "required": true,
-        "schema": { "type": "string" },
-        "description": "ID do fornecedor"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Lista de produtos retornada com sucesso"
+      "get": {
+        "tags": ["Produtos"],
+        "summary": "Listar todos os produtos",
+        "responses": { "200": { "description": "Sucesso" } }
       },
-      "404": {
-        "description": "Nenhum produto encontrado para este fornecedor"
+      "post": {
+        "tags": ["Produtos"],
+        "summary": "Cadastrar novo produto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "description": { "type": "string" },
+                  "price": { "type": "number" },
+                  "stock_quantity": { "type": "integer" },
+                  "supplier_id": { "type": "string" },
+                  "status": { "type": "string" }
+                },
+                "required": ["name", "description", "price", "stock_quantity", "supplier_id"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Produto criado" } }
       }
-    }
-  }
-}
-,
+    },
+
+    "/products/supplier/{supplierId}": {
+      "get": {
+        "tags": ["Produtos"],
+        "summary": "Listar produtos de um fornecedor",
+        "parameters": [
+          { "name": "supplierId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Lista de produtos retornada" } }
+      }
+    },
+
     "/products/{id}": {
-      "get": { "tags": ["Produtos"], "summary": "Buscar produto por ID", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Sucesso" }, "404": { "description": "Produto não encontrado" } } },
-      "put": { "tags": ["Produtos"], "summary": "Atualizar produto", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "name": { "type": "string" }, "description": { "type": "string" }, "price": { "type": "number" }, "stock_quantity": { "type": "integer" }, "supplier_id": { "type": "string" }, "status": { "type": "string" } } } } } }, "responses": { "200": { "description": "Atualizado" }, "404": { "description": "Produto não encontrado" } } },
-      "delete": { "tags": ["Produtos"], "summary": "Deletar produto", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Deletado" } } }
+      "get": {
+        "tags": ["Produtos"],
+        "summary": "Buscar produto por ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Sucesso" },
+          "404": { "description": "Produto não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Produtos"],
+        "summary": "Atualizar produto",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "description": { "type": "string" },
+                  "price": { "type": "number" },
+                  "stock_quantity": { "type": "integer" },
+                  "supplier_id": { "type": "string" },
+                  "status": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Atualizado" },
+          "404": { "description": "Produto não encontrado" }
+        }
+      },
+      "delete": {
+        "tags": ["Produtos"],
+        "summary": "Deletar produto",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Deletado" } }
+      }
+    },
+
+    "/products/import": {
+      "post": {
+        "tags": ["Produtos"],
+        "summary": "Importar produtos via arquivo Excel",
+        "description": "Recebe um arquivo .xlsx contendo produtos e realiza a importação em massa.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Arquivo Excel contendo os produtos"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Importação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string" },
+                    "total": { "type": "number" },
+                    "produtos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": { "type": "string" },
+                          "description": { "type": "string" },
+                          "price": { "type": "number" },
+                          "stock_quantity": { "type": "number" },
+                          "supplier_id": { "type": "string" },
+                          "status": { "type": "string" },
+                          "barcode": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Erro de validação do arquivo" },
+          "500": { "description": "Erro interno durante a importação" }
+        }
+      }
     },
 
     "/orders": {
-      "get": { "tags": ["Pedidos"], "summary": "Listar todos os pedidos", "responses": { "200": { "description": "Sucesso" } } },
-      "post": { "tags": ["Pedidos"], "summary": "Criar novo pedido", "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "store_id": { "type": "string" }, "items": { "type": "array", "items": { "type": "object", "properties": { "product_id": { "type": "string" }, "quantity": { "type": "integer" }, "campaign_id": { "type": "string" }, "unit_price": { "type": "number" } } } }, "total_amount": { "type": "number" }, "status": { "type": "string" } }, "required": ["store_id", "items"] } } } }, "responses": { "201": { "description": "Pedido criado" } } }
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Listar pedidos",
+        "responses": { "200": { "description": "Sucesso" } }
+      },
+      "post": {
+        "tags": ["Pedidos"],
+        "summary": "Criar pedido",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "store_id": { "type": "string" },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "product_id": { "type": "string" },
+                        "quantity": { "type": "integer" },
+                        "campaign_id": { "type": "string" },
+                        "unit_price": { "type": "number" }
+                      }
+                    }
+                  },
+                  "total_amount": { "type": "number" },
+                  "status": { "type": "string" }
+                },
+                "required": ["store_id", "items"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Pedido criado" } }
+      }
     },
+
     "/orders/{id}": {
-      "get": { "tags": ["Pedidos"], "summary": "Buscar pedido por ID", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Sucesso" }, "404": { "description": "Pedido não encontrado" } } },
-      "put": { "tags": ["Pedidos"], "summary": "Atualizar pedido", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "store_id": { "type": "string" }, "items": { "type": "array", "items": { "type": "object", "properties": { "product_id": { "type": "string" }, "quantity": { "type": "integer" }, "campaign_id": { "type": "string" }, "unit_price": { "type": "number" } } } }, "status": { "type": "string" } } } } } }, "responses": { "200": { "description": "Atualizado" }, "404": { "description": "Pedido não encontrado" } } },
-      "delete": { "tags": ["Pedidos"], "summary": "Deletar pedido", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Deletado" } } }
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Buscar pedido",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Sucesso" },
+          "404": { "description": "Pedido não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Pedidos"],
+        "summary": "Atualizar pedido",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "store_id": { "type": "string" },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "product_id": { "type": "string" },
+                        "quantity": { "type": "integer" },
+                        "campaign_id": { "type": "string" },
+                        "unit_price": { "type": "number" }
+                      }
+                    }
+                  },
+                  "status": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Atualizado" },
+          "404": { "description": "Pedido não encontrado" }
+        }
+      },
+      "delete": {
+        "tags": ["Pedidos"],
+        "summary": "Deletar pedido",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Deletado" } }
+      }
     },
 
     "/campaigns": {
-      "get": { "tags": ["Campanhas"], "summary": "Listar todas as campanhas", "responses": { "200": { "description": "Sucesso" } } },
-      "post": { "tags": ["Campanhas"], "summary": "Criar nova campanha", "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "supplier_id": { "type": "string" }, "name": { "type": "string" }, "start_date": { "type": "string" }, "end_date": { "type": "string" }, "discount_percentage": { "type": "number" } }, "required": ["supplier_id", "name", "discount_percentage"] } } } }, "responses": { "201": { "description": "Campanha criada" } } }
+      "get": {
+        "tags": ["Campanhas"],
+        "summary": "Listar campanhas",
+        "responses": { "200": { "description": "Sucesso" } }
+      },
+      "post": {
+        "tags": ["Campanhas"],
+        "summary": "Criar campanha",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "supplier_id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "start_date": { "type": "string" },
+                  "end_date": { "type": "string" },
+                  "discount_percentage": { "type": "number" }
+                },
+                "required": ["supplier_id", "name", "discount_percentage"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Campanha criada" } }
+      }
     },
+
     "/campaigns/{id}": {
-      "get": { "tags": ["Campanhas"], "summary": "Buscar campanha por ID", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Sucesso" }, "404": { "description": "Campanha não encontrada" } } },
-      "put": { "tags": ["Campanhas"], "summary": "Atualizar campanha", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "supplier_id": { "type": "string" }, "name": { "type": "string" }, "start_date": { "type": "string" }, "end_date": { "type": "string" }, "discount_percentage": { "type": "number" } } } } } }, "responses": { "200": { "description": "Atualizado" }, "404": { "description": "Campanha não encontrada" } } },
-      "delete": { "tags": ["Campanhas"], "summary": "Deletar campanha", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Deletado" } } }
+      "get": {
+        "tags": ["Campanhas"],
+        "summary": "Buscar campanha",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Sucesso" },
+          "404": { "description": "Campanha não encontrada" }
+        }
+      },
+      "put": {
+        "tags": ["Campanhas"],
+        "summary": "Atualizar campanha",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "supplier_id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "start_date": { "type": "string" },
+                  "end_date": { "type": "string" },
+                  "discount_percentage": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Atualizado" },
+          "404": { "description": "Campanha não encontrada" }
+        }
+      },
+      "delete": {
+        "tags": ["Campanhas"],
+        "summary": "Deletar campanha",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Deletado" } }
+      }
+    },
+
+    "/campaigns/supplier/{supplierId}": {
+      "get": {
+        "tags": ["Campanhas"],
+        "summary": "Listar campanhas de um fornecedor específico",
+        "parameters": [
+          {
+            "name": "supplierId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Lista de campanhas retornada com sucesso" },
+          "404": { "description": "Nenhuma campanha encontrada para este fornecedor" }
+        }
+      }
     }
   }
 }

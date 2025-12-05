@@ -1,35 +1,37 @@
-const StoresService = require("../services/storesService");
+const storesService = require("../services/storesService");
 
 class storesController {
   async index(req, res) {
     try {
-      const result = await StoresService.getAll();
+      const result = await storesService.getAll();
       res.json(result);
     } catch (err) {
-      res.status(500).json({ error: "Erro ao listar lojas" });
+      res.status(500).json({ error: "erro ao listar lojas" });
     }
   }
 
   async show(req, res) {
     try {
-      const result = await StoresService.getById(req.params.id);
+      const result = await storesService.getByIdWithAll(req.params.id);
+
       if (!result) {
-        return res.status(404).json({ message: "Loja não encontrada" });
+        return res.status(404).json({ message: "loja não encontrada" });
       }
+
       res.json(result);
     } catch (err) {
-      res.status(500).json({ error: "Erro ao buscar loja" });
+      res.status(500).json({ error: "erro ao buscar loja" });
     }
   }
 
   async store(req, res) {
     try {
-      const created = await StoresService.create(req.body);
+      const created = await storesService.create(req.body);
       res.status(201).json(created);
     } catch (err) {
-      console.error("Erro ao criar loja:", err);
+      console.error("erro ao criar loja:", err);
       res.status(400).json({
-        error: "Erro ao criar loja",
+        error: "erro ao criar loja",
         details: err.message
       });
     }
@@ -37,22 +39,57 @@ class storesController {
 
   async update(req, res) {
     try {
-      const updated = await StoresService.update(req.params.id, req.body);
+      const updated = await storesService.update(req.params.id, req.body);
       if (!updated) {
-        return res.status(404).json({ message: "Loja não encontrada" });
+        return res.status(404).json({ message: "loja não encontrada" });
       }
       res.json(updated);
     } catch (err) {
-      res.status(400).json({ error: "Erro ao atualizar loja", details: err.message });
+      res.status(400).json({
+        error: "erro ao atualizar loja",
+        details: err.message
+      });
     }
   }
 
   async delete(req, res) {
     try {
-      await StoresService.delete(req.params.id);
-      res.json({ message: "Loja removida com sucesso" });
+      await storesService.delete(req.params.id);
+      res.json({ message: "loja removida com sucesso" });
     } catch (err) {
-      res.status(500).json({ error: "Erro ao remover loja" });
+      res.status(500).json({ error: "erro ao remover loja" });
+    }
+  }
+
+  // ➤ cadastrar endereço e vincular à loja
+  async addaddress(req, res) {
+    try {
+      const storeid = req.params.id;
+
+      const result = await storesService.addAddress(storeid, req.body);
+
+      res.status(201).json(result);
+    } catch (err) {
+      res.status(400).json({
+        error: "erro ao adicionar endereço",
+        details: err.message
+      });
+    }
+  }
+
+  // ➤ cadastrar contato e vincular à loja
+  async addcontact(req, res) {
+    try {
+      const storeid = req.params.id;
+
+      const result = await storesService.addContact(storeid, req.body);
+
+      res.status(201).json(result);
+    } catch (err) {
+      res.status(400).json({
+        error: "erro ao adicionar contato",
+        details: err.message
+      });
     }
   }
 }

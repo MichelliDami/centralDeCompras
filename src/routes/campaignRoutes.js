@@ -8,5 +8,6 @@ router.get("/:id", CampaignsController.show);
 router.post("/", CampaignsController.store);
 router.put("/:id", CampaignsController.update);
 router.delete("/:id", CampaignsController.delete);
+router.get("/supplier/:supplierId", CampaignsController.getBySupplier);
 
 module.exports = router;

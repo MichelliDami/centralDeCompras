@@ -20,6 +20,10 @@ class campaignService {
   async delete(id) {
     return await CampaignsRepository.delete(id);
   }
+
+  async getBySupplier(supplierId) {
+      return await CampaignsRepository.findBySupplier(supplierId);
+    }
 }
 
 module.exports = new campaignService();
