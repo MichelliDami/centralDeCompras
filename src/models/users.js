@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
 
     level: {
       type: String,
-      enum: ["admin", "user", "buyer"],
+      enum: ["admin", "store", "buyer"],
       required: true
     },
 
