@@ -17,87 +17,175 @@
 
   "paths": {
     "/users": {
-      "get": {
-        "tags": ["Usuários"],
-        "summary": "Listar todos os usuários",
-        "responses": { "200": { "description": "Sucesso" } }
-      },
-      "post": {
-        "tags": ["Usuários"],
-        "summary": "Cadastrar novo usuário",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
+  "get": {
+    "tags": ["Usuários"],
+    "summary": "Listar todos os usuários",
+    "responses": {
+      "200": {
+        "description": "Sucesso",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string", "example": "Nicole" },
-                  "contact_email": { "type": "string", "example": "nicole@teste.com" },
-                  "user": { "type": "string", "example": "nicole123" },
-                  "pwd": { "type": "string", "example": "senha123" },
-                  "level": { "type": "string", "example": "admin" },
-                  "status": { "type": "string", "example": "on" }
-                },
-                "required": ["name", "contact_email", "user", "pwd"]
-              }
-            }
-          }
-        },
-        "responses": { "201": { "description": "Usuário criado" } }
-      }
-    },
-
-    "/users/{id}": {
-      "get": {
-        "tags": ["Usuários"],
-        "summary": "Buscar usuário por ID",
-        "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
-        ],
-        "responses": {
-          "200": { "description": "Sucesso" },
-          "404": { "description": "Usuário não encontrado" }
-        }
-      },
-      "put": {
-        "tags": ["Usuários"],
-        "summary": "Atualizar usuário",
-        "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
+                  "_id": { "type": "string" },
                   "name": { "type": "string" },
                   "contact_email": { "type": "string" },
                   "user": { "type": "string" },
-                  "pwd": { "type": "string" },
                   "level": { "type": "string" },
-                  "status": { "type": "string" }
+                  "status": { "type": "string" },
+                  "store_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "ID da loja vinculada ao usuário"
+                  },
+                  "supplier_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "ID do fornecedor vinculado ao usuário"
+                  }
                 }
               }
             }
           }
-        },
-        "responses": {
-          "200": { "description": "Atualizado" },
-          "404": { "description": "Usuário não encontrado" }
         }
-      },
-      "delete": {
-        "tags": ["Usuários"],
-        "summary": "Deletar usuário",
-        "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
-        ],
-        "responses": { "200": { "description": "Deletado" } }
+      }
+    }
+  },
+
+  "post": {
+    "tags": ["Usuários"],
+    "summary": "Cadastrar novo usuário",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "example": "Nicole" },
+              "contact_email": { "type": "string", "example": "nicole@teste.com" },
+              "user": { "type": "string", "example": "nicole123" },
+              "pwd": { "type": "string", "example": "senha123" },
+              "level": { "type": "string", "example": "user" },
+              "status": { "type": "string", "example": "on" },
+
+              "store_id": {
+                "type": "string",
+                "example": "675abf50d09c43e615fbbf3d",
+                "nullable": true,
+                "description": "ID da loja que o usuário pertence"
+              },
+
+              "supplier_id": {
+                "type": "string",
+                "example": "675adc23b87a71b33c9a9f19",
+                "nullable": true,
+                "description": "ID do fornecedor que o usuário pertence"
+              }
+            },
+            "required": ["name", "contact_email", "user", "pwd"]
+          }
+        }
       }
     },
+    "responses": { "201": { "description": "Usuário criado" } }
+  }
+},
+
+"/users/{id}": {
+  "get": {
+    "tags": ["Usuários"],
+    "summary": "Buscar usuário por ID",
+    "parameters": [
+      { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+    ],
+    "responses": {
+      "200": {
+        "description": "Sucesso",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": { "type": "string" },
+                "name": { "type": "string" },
+                "contact_email": { "type": "string" },
+                "user": { "type": "string" },
+                "level": { "type": "string" },
+                "status": { "type": "string" },
+                "store_id": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "ID da loja vinculada"
+                },
+                "supplier_id": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "ID do fornecedor vinculado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": { "description": "Usuário não encontrado" }
+    }
+  },
+
+  "put": {
+    "tags": ["Usuários"],
+    "summary": "Atualizar usuário",
+    "parameters": [
+      { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "contact_email": { "type": "string" },
+              "user": { "type": "string" },
+              "pwd": { "type": "string" },
+              "level": { "type": "string" },
+              "status": { "type": "string" },
+
+              "store_id": {
+                "type": "string",
+                "nullable": true,
+                "description": "ID da loja que o usuário deve pertencer"
+              },
+
+              "supplier_id": {
+                "type": "string",
+                "nullable": true,
+                "description": "ID do fornecedor que o usuário deve pertencer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": { "description": "Atualizado" },
+      "404": { "description": "Usuário não encontrado" }
+    }
+  },
+
+  "delete": {
+    "tags": ["Usuários"],
+    "summary": "Deletar usuário",
+    "parameters": [
+      { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+    ],
+    "responses": { "200": { "description": "Deletado" } }
+  }
+},
 
     "/suppliers": {
       "get": {
