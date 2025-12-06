@@ -16,7 +16,7 @@ const ItemSchema = new mongoose.Schema({
   },
   campaign_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Campaign",
+    ref: "campaign",
     required: false
   }
 });
@@ -25,13 +25,13 @@ const orderSchema = new mongoose.Schema(
   {
     store_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Store",
+      ref: "store",
       required: true
     },
 
     supplier_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Supplier",
+      ref: "supplier",
       required: true
     },
 
